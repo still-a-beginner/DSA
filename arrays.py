@@ -53,6 +53,13 @@ def update(l,i,n):
     l[i] = n
     return l
     
+#The extreme function is to find the minimum and the maximum number in the list, l.
+#Use other data structure to find the extreme of the list.
+def extreme(l):
+    print('\nExtreme function')
+    print('Initial list is',l)
+    return {'max':max(l), 'min':min(l)}
+    
 n = 8
 i = 2
 
@@ -78,4 +85,8 @@ print(l)
 
 l = [1,2,3,4]
 l = update(l,i,n)
+print(l)
+
+l = [1,2,3,4]
+l = extreme(l)
 print(l)
