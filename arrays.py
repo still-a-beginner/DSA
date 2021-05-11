@@ -53,7 +53,7 @@ def update(l,i,n):
     l[i] = n
     return l
     
-#The extreme function is to find the minimum and the maximum number in the list, l.
+#The extreme function is to find the minimum and the maximum number in the list, l. The time complexity is Θ(len(l)).
 #Use other data structure to find the extreme of the list.
 def extreme(l):
     print('\nExtreme function')
