@@ -27,7 +27,7 @@ def insert(l,i,n):
     l = l1 + l2
     return l
 
-#The delete function is to pop at a particular index, i in the list, l. The time complexity is Θ(len(l)).
+#The delete function is to pop a number at a particular index, i in the list, l. The time complexity is Θ(len(l)).
 #Use other data structure to delete an element at a particular index.
 def delete(l,i):
     print('\nDelete function')
