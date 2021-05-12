@@ -2,13 +2,13 @@
 #Insert/Remove item at the beginning: linkedlist Θ(1) time complexity. Use linkedlists.
 #Insert/Remove item at the end or any other point: linkedlist Θ(len(l)) time complexity Use arrays.
 
-#The node object consists of a constructor node which has a data and reference initially.
+#The node consists of a a constructor node which has a data and reference initially.
 class Node(object):
     def __init__(self,data):
         self.data = data
         self.nextNode = None
 
-#The linkedlist object has a constructor which has a reference head and size initially
+#The linkedlist object which has a reference head and size initially
 class LinkedList(object):
     def __init__(self):
         self.size = 0
@@ -20,7 +20,6 @@ class LinkedList(object):
         self.size = self.size + 1
         newNode = Node(data)
         
-        #Reference f the node is made below.
         #If the linkedlist is initially empty then the there is no next node. So make a node to refer to the null or none value.
         if not self.head:
             self.head = newNode
@@ -30,6 +29,45 @@ class LinkedList(object):
             newNode.nextNode = self.head
             self.head = newNode
     
-    #The size of the linkedlist is returned
+    #The size of the linkedlist is returned. Time complexity is Θ(1).
     def size(self):
         return self.size
+    
+    #A new node of Node object type with data is made in inserting in linkedlist.
+    #Iterate till we get the None value. The time complexity is Θ(size_final). So use lists to enter an element at the end.
+    def insertEnd(self,data):
+        self.size = self.size + 1
+        newNode = Node(data)
+        actualNode = self.head
+        
+        while actualNode.nextNode is not None:
+            actualNode = actualNode.nextNode
+            
+        actualNode.nextNode = newNode
+        
+    #Time complexity is Θ(size_final). Use lists to show the list of numbers.
+    def traverse(self):
+        actualNode = self.head
+        while actualNode is not None:
+            print(actualNode)
+            actualNode = actualNode.nextNode
+    
+    #Time complexity is Θ(size_final)
+    def remove(self, data):
+        #If linkedlist is empty then use this.
+        if self.head is None:
+            return
+        #For removing an item in linkedlist, size is decreased by 1.
+        self.size = self.size - 1
+        #Current node is 
+        currentNode = self.head
+        previousNode = None
+        while currentNode.data != data:
+            previousNode = currentNode
+            currentNode = currentNode.nextNode
+        #Data to be removed is the first item
+        if previousNode is None:
+            self.head = currentNode.nextNode
+        #Data to be removed is non first item
+        else:
+            previousNode.nextNode = currentNode.nextNode
