@@ -1,89 +1,113 @@
-#The doublelinkedlist is where the reference of a node is in both the directions, forwards and backwards.
-#The doublelinkedlist is useful in many places. It has  a few disadvantages and advantages over lists
-#Insert/Remove item at the beginning: doublelinkedlist Θ(1) time complexity. Use linkedlists.
-#Insert/Remove item at the end or any other point: doublelinkedlist Θ(len(l)) time complexity Use arrays.
+# Creating a node class
+class Node:
+  def __init__(self, data):
+    self.data = data #adding an element to the node
+    self.next = None # Initally this node will not be linked with any other node
+    self.prev = None # It will not be linked in either direction
 
-#The node consists of a a constructor node which has a data and reference initially.
-class Node(object):
-    def __init__(self,data):
-        self.data = data
-        self.nextNode = None
 
-#The linkedlist object which has a reference head and size initially
-class LinkedList(object):
-    def __init__(self):
-        self.size = 0
-        self.head = None
+# Creating a doubly linked list class
+class DoublyLinkedList:
+  def __init__(self):
+    self.head = None # Initally there are no elements in the list
+    self.tail = None
+  
+
+  def push_front(self, new_data): # Adding an element before the first element
+    new_node = Node(new_data) # creating a new node with the desired value
+    new_node.next = self.head # newly created node's next pointer will refer to the old head
+
+    if self.head != None: # Checks whether list is empty or not
+        self.head.prev = new_node # old head's previous pointer will refer to newly created node
+        self.head = new_node # new node becomes the new head
+        new_node.prev = None
     
-    #Use linkedlist to insert data at the start of the object. It has time complexty of Θ(1).
-    #A new node of Node object type with data is made in inserting in linkedlist.
-    def insertStart(self,data):
-        self.size = self.size + 1
-        newNode = Node(data)
-        
-        #If the linkedlist is initially empty then the there is no next node. So make a node to refer to the null or none value.
-        if not self.head:
-            self.head = newNode
-        
-        #Else the linkedlist is non empty then the 
-        else:
-            newNode.nextNode = self.head
-            self.head = newNode
+    else: # If the list is empty, make new node both head and tail
+      self.head = new_node
+      self.tail = new_node
+      new_node.prev = None # There's only one element so both pointers refer to null
     
-    #The size of the linkedlist is returned. Time complexity is Θ(1).
-    def linkedlistsize(self):
-        return self.size
+
+  def push_back(self, new_data): # Adding an element after the last element
+      new_node = Node(new_data)
+      new_node.prev = self.tail
+
+      if self.tail == None: # checks whether the list is empty, if so make both head and tail as new node
+        self.head = new_node 
+        self.tail = new_node
+        new_node.next = None # the first element's previous pointer has to refer to null
+              
+      else: # If list is not empty, change pointers accordingly
+        self.tail.next = new_node
+        new_node.next = None
+        self.tail = new_node # Make new node the new tail
     
-    #A new node of Node object type with data is made in inserting in linkedlist.
-    #Iterate till we get the None value. The time complexity is Θ(size_final). So use lists to enter an element at the end.
-    def insertEnd(self,data):
-        self.size = self.size + 1
-        newNode = Node(data)
-        actualNode = self.head
-        
-        while actualNode.nextNode is not None:
-            actualNode = actualNode.nextNode
-            
-        actualNode.nextNode = newNode
-        
-    #Time complexity is Θ(size_final). Use lists to show the list of numbers.
-    def traverse(self):
-        actualNode = self.head
-        while actualNode is not None:
-            print(actualNode.data)
-            actualNode = actualNode.nextNode
+
+  def peek_front(self): # returns first element
+    if self.head == None: # checks whether list is empty or not
+      print("List is empty")
+    else:
+      return self.head.data
+
+  
+  def peek_back(self): # returns last element
+    if self.tail == None: # checks whether list is empty or not
+      print("List is empty")
+    else:
+      return self.tail.data
+  
+
+  def pop_front(self): # removes and returns the first element
+    if self.head == None:
+      print("List is empty")
     
-    #Time complexity is Θ(size_final)
-    def remove(self, data):
-        #If linkedlist is empty then use this.
-        if self.head is None:
-            return
-        #For removing an item in linkedlist, size is decreased by 1.
-        self.size = self.size - 1
-        #Current node is 
-        currentNode = self.head
-        previousNode = None
-        while currentNode.data != data:
-            previousNode = currentNode
-            currentNode = currentNode.nextNode
-        #Data to be removed is the first item
-        if previousNode is None:
-            self.head = currentNode.nextNode
-        #Data to be removed is non first item
-        else:
-            previousNode.nextNode = currentNode.nextNode
-            
-ll = LinkedList()
-ll.insertStart(1)
-ll.insertStart(3)
-ll.insertEnd(12)
-ll.insertEnd(4)
-ll.insertEnd(34)
-ll.insertEnd(57)
-ll.insertStart(42)
-ll.insertStart(19)
-ll.traverse()
-print("size is",ll.linkedlistsize())
-ll.remove(3)
-ll.remove(12)
-print("size is",ll.linkedlistsize())
+    else:
+      temp = self.head
+      temp.next.prev = None # remove previous pointer referring to old head
+      self.head = temp.next # make second element the new head
+      temp.next = None # remove next pointer referring to new head
+      return temp.data
+  
+  
+  def pop_back(self): # removes and returns the last element
+    if self.tail == None:
+      print("List is empty")
+
+    else:
+      temp = self.tail
+      temp.prev.next = None # removes next pointer referring to old tail
+      self.tail = temp.prev # make second to last element the new tail
+      temp.prev = None # remove previous pointer referring to new tail
+      return temp.data
+  
+
+  def insert_after(self, temp_node, new_data): # Inserting a new node after a given node
+    if temp_node == None:
+      print("Given node is empty")
+    
+    if temp_node != None:
+      new_node = Node(new_data)
+      new_node.next = temp_node.next
+      temp_node.next = new_node
+      new_node.prev = temp_node
+      if new_node.next != None:
+        new_node.next.prev = new_node
+      
+      if temp_node == self.tail: # checks whether new node is being added to the last element
+        self.tail = new_node # makes new node the new tail
+    
+
+  
+  def insert_before(self, temp_node, new_data): # Inserting a new node before a given node
+    if temp_node == None:
+      print("Given node is empty")
+    
+    if temp_node != None:
+      new_node.prev = temp_node.prev
+      temp_node.prev = new_node
+      new_node.next = temp_node
+      if new_node.prev != None:
+        new_node.prev.next = new_node
+      
+      if temp_node == self.head: # checks whether new node is being added before the first element
+        self.head = new_node # makes new node the new head
