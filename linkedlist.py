@@ -30,7 +30,7 @@ class LinkedList(object):
             self.head = newNode
     
     #The size of the linkedlist is returned. Time complexity is Θ(1).
-    def size(self):
+    def linkedlistsize(self):
         return self.size
     
     #A new node of Node object type with data is made in inserting in linkedlist.
@@ -49,7 +49,7 @@ class LinkedList(object):
     def traverse(self):
         actualNode = self.head
         while actualNode is not None:
-            print(actualNode)
+            print(actualNode.data)
             actualNode = actualNode.nextNode
     
     #Time complexity is Θ(size_final)
@@ -71,3 +71,18 @@ class LinkedList(object):
         #Data to be removed is non first item
         else:
             previousNode.nextNode = currentNode.nextNode
+            
+ll = LinkedList()
+ll.insertStart(1)
+ll.insertStart(3)
+ll.insertEnd(12)
+ll.insertEnd(4)
+ll.insertEnd(34)
+ll.insertEnd(57)
+ll.insertStart(42)
+ll.insertStart(19)
+ll.traverse()
+print("size is",ll.linkedlistsize())
+ll.remove(3)
+ll.remove(12)
+print("size is",ll.linkedlistsize())
