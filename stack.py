@@ -31,6 +31,7 @@ class Stack(object):
     def sizeStack(self):
         return len(self.stack)
         
+        
 s = Stack()
 s.push(1)
 s.push(3)
@@ -41,3 +42,24 @@ print("Popped",s.pop())
 print(s.peek())
 print("Popped",s.pop())
 print(s.sizeStack())
+
+#Recursion is to call the function again and again
+#Integer is passed through the function.
+def factorial(n):
+    if n == 0:
+        return 1
+    else:
+        return n * factorial(n-1)
+
+#Using stack
+def factorialStack(n):
+    f = Stack()
+    f.push(n)
+    while n != 1 :
+        n = n - 1
+        f.push(n*f.peek())
+        
+    return f.peek()
+
+print(factorial(5))
+print(factorialStack(5))
