@@ -1,3 +1,27 @@
+#Node object has a constructor which has the initial data, previous reference and next reference.
+class Node(object):
+    def __init__(self,data):
+        self.data = data
+        self.previousNode = None
+        self.nextNode = None
+
+#The doublelinkedlist class has a head and tail as the parameters initially.        
+class DoubleLinkedList(object):
+    def __init__(self):
+        self.head = None
+        self.tail = None
+        
+    #The linkedlist has time complexity of Θ(size_final) to remove a number from the linkedlist.
+    #The doublelinkedlist has the time complexity of Θ(1) to remove a number of doublelinkedlist.
+    def remove(Node node):
+        node.previousNode.nextNode = node.nextNode
+        node.nextNode.previousNode = node.previousNode
+        
+
+
+
+
+
 # Creating a node class
 class Node:
   def __init__(self, data):
